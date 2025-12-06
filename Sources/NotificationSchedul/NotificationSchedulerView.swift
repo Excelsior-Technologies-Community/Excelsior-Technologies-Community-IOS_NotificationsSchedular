@@ -2,7 +2,8 @@ import SwiftUI
 
 // MARK: - Main View
 
-struct NotificationSchedulerView: View {
+public struct NotificationSchedulerView: View {
+
     @State private var selectedTab = 0
     @State private var showAddSheet = false
     @State private var editingNotification: NotificationItem?
