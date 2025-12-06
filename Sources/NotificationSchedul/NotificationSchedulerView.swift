@@ -693,16 +693,17 @@ public enum NotificationType: String, Codable, CaseIterable {
 }
 
 public struct NotificationItem: Identifiable, Codable, Equatable {
-    var id: String
-    var title: String
-    var time: Date
-    var type: NotificationType
-    var date: Date?
-    var selectedDays: [Int]?
-    var sound: String
-    var isEnabled: Bool
+    public var id: String
+    public var title: String
+    public var time: Date
+    public var type: NotificationType
+    public var date: Date?
+    public var selectedDays: [Int]?
+    public var sound: String
+    public var isEnabled: Bool
+
     
-    init(id: String = UUID().uuidString,
+   public init(id: String = UUID().uuidString,
          title: String,
          time: Date,
          type: NotificationType,

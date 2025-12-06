@@ -18,7 +18,7 @@ public class NotificationManager: NSObject, ObservableObject, UNUserNotification
         super.init()
         UNUserNotificationCenter.current().delegate = self
     }
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
+   public func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
