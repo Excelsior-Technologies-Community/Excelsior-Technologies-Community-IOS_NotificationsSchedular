@@ -4,6 +4,8 @@ import SwiftUI
 
 public struct NotificationSchedulerView: View {
 
+    public init() {}
+    
     @State private var selectedTab = 0
     @State private var showAddSheet = false
     @State private var editingNotification: NotificationItem?
@@ -702,16 +704,16 @@ public struct NotificationItem: Identifiable, Codable, Equatable {
     public var sound: String
     public var isEnabled: Bool
 
-    
-   public init(id: String = UUID().uuidString,
-         title: String,
-         time: Date,
-         type: NotificationType,
-         date: Date? = nil,
-         selectedDays: [Int]? = nil,
-         sound: String,
-         isEnabled: Bool)
-    {
+    public init(
+        id: String = UUID().uuidString,
+        title: String,
+        time: Date,
+        type: NotificationType,
+        date: Date? = nil,
+        selectedDays: [Int]? = nil,
+        sound: String,
+        isEnabled: Bool
+    ) {
         self.id = id
         self.title = title
         self.time = time
@@ -722,6 +724,7 @@ public struct NotificationItem: Identifiable, Codable, Equatable {
         self.isEnabled = isEnabled
     }
 }
+
 
 // MARK: - Color Extension
 
