@@ -10,9 +10,9 @@ import Foundation
 import UserNotifications
 import SwiftUI
 
-class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+public class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
 
-    static let shared = NotificationManager()
+    public static let shared = NotificationManager()
 
     override init() {
         super.init()
@@ -27,7 +27,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
 
 
     // MARK: - Request Permission
-    func requestPermission() {
+    public func requestPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             print("Permission granted: \(granted)")
             if let error = error { print("Error: \(error.localizedDescription)") }
@@ -35,7 +35,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     }
 
     // MARK: - Schedule Notification
-    func schedule(_ item: NotificationItem) {
+   public  func schedule(_ item: NotificationItem) {
         delete(item.id) // remove old one if exists
 
         let content = UNMutableNotificationContent()
@@ -108,7 +108,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     }
 
     // MARK: Delete Notification
-    func delete(_ id: String) {
+   public  func delete(_ id: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [id])
     }

@@ -11,7 +11,8 @@ public struct NotificationSchedulerView: View {
     @State private var showPastEnableAlert = false
     @State private var editingForFutureCorrection: NotificationItem?
     
-    var body: some View {
+    public var body: some View {
+
         NavigationView {
             ZStack {
                 // Background Gradient
@@ -684,14 +685,14 @@ struct SoundPickerSheet: View {
 
 // MARK: - Models
 
-enum NotificationType: String, Codable, CaseIterable {
+public enum NotificationType: String, Codable, CaseIterable {
     case oneTime
     case daily
     case weekly
     case hourly
 }
 
-struct NotificationItem: Identifiable, Codable, Equatable {
+public struct NotificationItem: Identifiable, Codable, Equatable {
     var id: String
     var title: String
     var time: Date

@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-class SoundPlayer {
+public class SoundPlayer {
     static let shared = SoundPlayer()
     private var player: AVAudioPlayer?
 
