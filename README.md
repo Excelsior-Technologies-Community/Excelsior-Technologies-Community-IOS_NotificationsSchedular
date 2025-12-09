@@ -61,7 +61,7 @@ Then click **Add Package**.
 ### Step 4 — Import in your code:
 
 ```swift
-import NotificationSchedulerKit
+import NotificationSchedul
 ````
 
 Package is ready to use.
@@ -103,7 +103,22 @@ struct YourApp: App {
     }
 }
 ```
+# 🧪 Using the Built-In SwiftUI Testing View
 
+Your package includes a complete testing UI.
+
+Just use:
+
+```swift
+import NotificationSchedulerKit
+
+struct ContentView: View {
+    var body: some View {
+        NotificationSchedulerView()
+    }
+}
+```
+-> Explanation how this works 
 ---
 
 # 🕒 1. Schedule One-Time Notification
@@ -179,21 +194,7 @@ LocalNotificationScheduler.shared.clearAll()
 
 ---
 
-# 🧪 Using the Built-In SwiftUI Testing View
 
-Your package includes a complete testing UI.
-
-Just use:
-
-```swift
-import NotificationSchedulerKit
-
-struct ContentView: View {
-    var body: some View {
-        NotificationSchedulerView()
-    }
-}
-```
 
 This allows developers to test notifications without writing extra code.
 
