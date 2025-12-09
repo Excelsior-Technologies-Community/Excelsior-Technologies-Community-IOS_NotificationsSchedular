@@ -10,13 +10,10 @@ import SwiftUI
 struct NotificationSchedulApp: App {
   
 
-    init() {
-        NotificationManager.shared.requestPermission()
-    }
-
+   
     var body: some Scene {
         WindowGroup {
-            NotificationSchedulerView()
+            ContentView()
         }
     }
 }
