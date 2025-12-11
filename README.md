@@ -1,227 +1,347 @@
- 
-```markdown
-#  iOS Local Notification Scheduler (SwiftUI + Swift Package Manager)
 
-A lightweight, reusable **Local Push Notification Scheduler** for iOS written in Swift.  
-This package allows any iOS developer to easily schedule:
+#   **iOS Local Notification Scheduler (Swift Package Manager)**
 
--  One-Time Notifications  
--  Daily Notifications  
--  Weekly Notifications  
--  Hourly Notifications  
--  Custom Sound Notifications  
+A lightweight Swift package that gives you a **super simple API** to schedule:
 
-Built completely in SwiftUI with a clean & reusable API.
+* One-Time Notifications
+* Daily Notifications
+* Weekly Notifications
+* Repeating Interval Notifications
+* Custom Sound Notifications
+
+No built-in UI required — developers can use **their own SwiftUI or UIKit interface** and call your API.
 
 ---
 
-#  Features
+#   **Features**
 
-✔ Schedule one-time reminders  
-✔ Schedule repeating daily notifications  
-✔ Set notifications for specific weekdays  
-✔ Hourly repeating notifications  
-✔ Custom notification sounds (`.wav`, `.caf`, `.aiff`)  
-✔ Easy integration using Swift Package Manager  
-✔ Includes a ready-to-use SwiftUI UI component  
-✔ iOS 15+ support  
+✔ Easy for beginners
+✔ Works with **any UI**
+✔ Fully dynamic (custom date, time, sound, title)
+✔ Daily reminders
+✔ Weekly reminders
+✔ One-time reminders
+✔ Repeating reminders (every X minutes/hours)
+✔ Custom sound support
+✔ iOS 15+
+✔ Clean & simple API
 
 ---
 
-#   Installation (Swift Package Manager)
+#   **Installation (Swift Package Manager)**
 
-### Step 1 — Open Xcode  
+### Step 1 — Open Xcode
+
 Go to:
 
 ```
-
 File → Add Packages…
-
 ```
 
 ### Step 2 — Enter the repository URL:
 
 ```
-
-[https://github.com/Excelsior-Technologies-Community/Excelsior-Technologies-Community-IOS_NotificationsSchedular](https://github.com/Excelsior-Technologies-Community/Excelsior-Technologies-Community-IOS_NotificationsSchedular)
-
+https://github.com/Excelsior-Technologies-Community/IOS_NotificationsSchedular
 ```
 
-### Step 3 — Select Dependency Rule
-Use:
+### Step 3 — Choose:
 
 ```
-
 Branch → main
+```
 
-````
+Click **Add Package**.
 
-Then click **Add Package**.
-
-### Step 4 — Import in your code:
+### Step 4 — Import it in your code:
 
 ```swift
 import NotificationSchedul
-````
+```
 
-Package is ready to use.
-
----
-
-#   Usage Guide
-
-The package exposes two main components:
-
-##   **LocalNotificationScheduler**
-
-Core engine for scheduling notifications.
-
-##  **NotificationSchedulerView**
-
-A ready-made SwiftUI UI for testing/previewing notifications.
+That’s it!  
 
 ---
 
-#   Request Permission
+#   **1. Request Notification Permission**
 
-Add this in your App file (`AppNameApp.swift`):
+Every app must ask the user once.
+
+Add this inside your first screen:
 
 ```swift
-import NotificationSchedulerKit
+NotificationAPI.shared.requestPermission()
+```
 
-@main
-struct YourApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .onAppear {
-                    LocalNotificationScheduler.shared.requestPermission { granted in
-                        print("Permission:", granted)
+You can place it inside `.onAppear {}` or in `App.swift`.
+
+---
+
+#   **Understanding the Simple API**
+
+Your package exposes **four** scheduling functions:
+
+1️⃣ **Daily**
+2️⃣ **Weekly**
+3️⃣ **One-Time**
+4️⃣ **Repeating (Interval)**
+
+Each accepts:
+
+* A `Date` (time)
+* A custom title
+* An optional custom sound
+* An array of days (for weekly reminders)
+
+---
+
+#   **2. Schedule a Daily Notification**
+
+Daily notifications fire at **the same time every day**.
+
+### Code Example:
+
+```swift
+NotificationAPI.shared.scheduleDaily(
+    at: selectedTime, 
+    title: "Drink Water"
+)
+```
+
+### How developers pass the time?
+
+From a SwiftUI DatePicker:
+
+```swift
+DatePicker("Select Time",
+           selection: $selectedTime,
+           displayedComponents: .hourAndMinute)
+```
+
+---
+
+#   **3. Schedule a Weekly Notification**
+
+To schedule on multiple days:
+
+| Number | Day       |
+| ------ | --------- |
+| 0      | Sunday    |
+| 1      | Monday    |
+| 2      | Tuesday   |
+| 3      | Wednesday |
+| 4      | Thursday  |
+| 5      | Friday    |
+| 6      | Saturday  |
+
+### Example: Every Monday, Wednesday, Friday
+
+```swift
+NotificationAPI.shared.scheduleWeekly(
+    at: selectedTime,
+    days: [1, 3, 5],
+    title: "Gym Time"
+)
+```
+
+### Explanation for Beginners:
+
+* `[1,3,5]` means:
+
+  * **1 → Monday**
+  * **3 → Wednesday**
+  * **5 → Friday**
+
+Developers can let users select days using buttons or toggles.
+
+---
+
+#   **4. Schedule a One-Time Notification**
+
+Use this when you want a notification on **specific date + specific time**.
+
+### Example:
+
+```swift
+NotificationAPI.shared.scheduleOneTime(
+    date: selectedDate,
+    time: selectedTime,
+    title: "Doctor Appointment"
+)
+```
+
+Example UI for selecting date:
+
+```swift
+DatePicker("Select Date",
+           selection: $selectedDate,
+           displayedComponents: .date)
+```
+
+---
+
+#   **5. Schedule a Repeating Notification (Interval)**
+
+This lets you fire a notification **every X seconds**.
+
+### Example: Every 30 minutes
+
+```swift
+NotificationAPI.shared.scheduleRepeating(
+    every: 1800,
+    title: "Take a Break"
+)
+```
+
+### Example: Every 1 hour
+
+```swift
+NotificationAPI.shared.scheduleRepeating(
+    every: 3600,
+    title: "Hourly Reminder"
+)
+```
+
+---
+
+#   **6. FULL Example: How Developers Use It in Their App**
+
+Copy & paste this into your `ContentView.swift`:
+
+```swift
+import SwiftUI
+import NotificationSchedul
+
+struct ContentView: View {
+
+    @State private var reminderTitle = ""
+    @State private var selectedTime = Date()
+    @State private var selectedDate = Date()
+    @State private var selectedWeeklyDays: Set<Int> = []
+
+    let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+
+                // TITLE
+                TextField("Enter Reminder Title", text: $reminderTitle)
+                    .padding()
+                    .background(.gray.opacity(0.2))
+                    .cornerRadius(10)
+
+                // TIME PICKER
+                DatePicker("Select Time",
+                           selection: $selectedTime,
+                           displayedComponents: .hourAndMinute)
+
+                // DAILY
+                Button("Set Daily Reminder") {
+                    NotificationAPI.shared.scheduleDaily(
+                        at: selectedTime,
+                        title: reminderTitle
+                    )
+                }
+
+                Divider()
+
+                // WEEKLY DAY SELECTION
+                Text("Select Weekly Days")
+                HStack {
+                    ForEach(0..<7) { index in
+                        Button {
+                            if selectedWeeklyDays.contains(index) {
+                                selectedWeeklyDays.remove(index)
+                            } else {
+                                selectedWeeklyDays.insert(index)
+                            }
+                        } label: {
+                            Text(weekDays[index])
+                                .frame(width: 45, height: 45)
+                                .background(selectedWeeklyDays.contains(index)
+                                            ? Color.blue
+                                            : Color.gray.opacity(0.3))
+                                .cornerRadius(8)
+                                .foregroundColor(.white)
+                        }
                     }
                 }
+
+                // WEEKLY
+                Button("Set Weekly Reminder") {
+                    NotificationAPI.shared.scheduleWeekly(
+                        at: selectedTime,
+                        days: Array(selectedWeeklyDays),
+                        title: reminderTitle
+                    )
+                }
+
+                Divider()
+
+                // ONE TIME
+                DatePicker("Select Date",
+                           selection: $selectedDate,
+                           displayedComponents: .date)
+
+                Button("Set One-Time Reminder") {
+                    NotificationAPI.shared.scheduleOneTime(
+                        date: selectedDate,
+                        time: selectedTime,
+                        title: reminderTitle
+                    )
+                }
+
+                Divider()
+
+                // REPEATING
+                Button("Repeat Every 30 Minutes") {
+                    NotificationAPI.shared.scheduleRepeating(
+                        every: 1800,
+                        title: reminderTitle
+                    )
+                }
+            }
+            .padding()
+        }
+        .onAppear {
+            NotificationAPI.shared.requestPermission()
         }
     }
 }
-```
-#   Using the Built-In SwiftUI Testing View
 
-Your package includes a complete testing UI.
-
-Just use:
-
-```swift
-import NotificationSchedulerKit
-
-struct ContentView: View {
-    var body: some View {
-        NotificationSchedulerView()
-    }
+#Preview {
+    ContentView()
 }
 ```
--> Explanation how this works 
+
 ---
 
-#   1. Schedule One-Time Notification
+#   **Custom Sounds**
+
+Developers can include any `.wav` file in their project:
+
+```
+clownhornsounds.wav
+dazzle.wav
+failurepiano.wav
+whistle.wav
+voicelaugh.wav
+```
+
+Make sure they are added to:
+
+```
+Xcode → Target → Build Phases → Copy Bundle Resources
+```
+
+Then pass the sound:
 
 ```swift
-LocalNotificationScheduler.shared.scheduleOnce(
-    id: UUID().uuidString,
-    at: Date().addingTimeInterval(10), // fires after 10 seconds
-    title: "Reminder",
-    body: "This is a one-time notification",
-    soundName: "whistle.wav"
+NotificationAPI.shared.scheduleDaily(
+    at: time,
+    title: "Water Reminder",
+    sound: "dazzle.wav"
 )
-```
-
----
-
-#  2. Schedule Daily Notification
-
-```swift
-LocalNotificationScheduler.shared.scheduleDaily(
-    id: UUID().uuidString,
-    at: someTimePickerValue,
-    title: "Daily Alert",
-    body: "This fires daily at the selected time",
-    soundName: "dazzle.wav"
-)
-```
-
----
-
-#   3. Schedule Weekly Notification
-
-```swift
-LocalNotificationScheduler.shared.scheduleWeekly(
-    id: UUID().uuidString,
-    weekday: 2, // Monday
-    at: someTimePickerValue,
-    title: "Weekly Meeting",
-    body: "Reminder for your weekly task",
-    soundName: "voicelaugh.wav"
-)
-```
-
----
-
-#  4. Schedule Hourly Notification
-
-```swift
-LocalNotificationScheduler.shared.scheduleHourly(
-    id: UUID().uuidString,
-    at: 30, // at minute 30 every hour
-    title: "Hourly Update",
-    body: "This runs every hour",
-    soundName: "failurepiano.wav"
-)
-```
-
----
-
-#   Cancel Notification
-
-```swift
-LocalNotificationScheduler.shared.cancel(id)
-```
-
----
-
-#  Cancel All Notifications
-
-```swift
-LocalNotificationScheduler.shared.clearAll()
-```
-
----
-
-
-
-This allows developers to test notifications without writing extra code.
-
----
-
-#   Adding Custom Sounds
-
-Your sound files **must** follow:
-
-* Format: `.wav`, `.aiff`, or `.caf`
-* Length < 30 seconds
-* Added to app target
-
-Example folder structure:
-
-```
-Assets/
-Sounds/
-   - whistle.wav
-   - dazzle.wav
-   - clownhornsounds.wav
-```
-
-Make sure each sound file is inside:
-
-```
-Target → Build Phases → Copy Bundle Resources
 ```
 
 ---
