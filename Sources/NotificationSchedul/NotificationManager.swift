@@ -118,3 +118,41 @@ public class NotificationManager: NSObject, ObservableObject, UNUserNotification
     }
 
 } 
+ 
+public enum NotificationType: String, Codable, CaseIterable {
+    case oneTime
+    case daily
+    case weekly
+    case hourly
+}
+ 
+public struct NotificationItem: Identifiable, Codable, Equatable {
+    public var id: String
+    public var title: String
+    public var time: Date
+    public var type: NotificationType
+    public var date: Date?
+    public var selectedDays: [Int]?
+    public var sound: String
+    public var isEnabled: Bool
+
+    public init(
+        id: String = UUID().uuidString,
+        title: String,
+        time: Date,
+        type: NotificationType,
+        date: Date? = nil,
+        selectedDays: [Int]? = nil,
+        sound: String = "dazzle.wav",
+        isEnabled: Bool = true
+    ) {
+        self.id = id
+        self.title = title
+        self.time = time
+        self.type = type
+        self.date = date
+        self.selectedDays = selectedDays
+        self.sound = sound
+        self.isEnabled = isEnabled
+    }
+}
