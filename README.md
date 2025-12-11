@@ -1,21 +1,21 @@
  
 ```markdown
-# 📣 iOS Local Notification Scheduler (SwiftUI + Swift Package Manager)
+#  iOS Local Notification Scheduler (SwiftUI + Swift Package Manager)
 
 A lightweight, reusable **Local Push Notification Scheduler** for iOS written in Swift.  
 This package allows any iOS developer to easily schedule:
 
-- 🕒 One-Time Notifications  
-- 🔁 Daily Notifications  
-- 📅 Weekly Notifications  
-- ⏰ Hourly Notifications  
-- 🔊 Custom Sound Notifications  
+-  One-Time Notifications  
+-  Daily Notifications  
+-  Weekly Notifications  
+-  Hourly Notifications  
+-  Custom Sound Notifications  
 
 Built completely in SwiftUI with a clean & reusable API.
 
 ---
 
-# 🚀 Features
+#  Features
 
 ✔ Schedule one-time reminders  
 ✔ Schedule repeating daily notifications  
@@ -28,7 +28,7 @@ Built completely in SwiftUI with a clean & reusable API.
 
 ---
 
-# 📦 Installation (Swift Package Manager)
+#   Installation (Swift Package Manager)
 
 ### Step 1 — Open Xcode  
 Go to:
@@ -68,21 +68,21 @@ Package is ready to use.
 
 ---
 
-# 🧩 Usage Guide
+#   Usage Guide
 
 The package exposes two main components:
 
-## 1️⃣ **LocalNotificationScheduler**
+##   **LocalNotificationScheduler**
 
 Core engine for scheduling notifications.
 
-## 2️⃣ **NotificationSchedulerView**
+##  **NotificationSchedulerView**
 
 A ready-made SwiftUI UI for testing/previewing notifications.
 
 ---
 
-# 🟦 Request Permission
+#   Request Permission
 
 Add this in your App file (`AppNameApp.swift`):
 
@@ -103,7 +103,7 @@ struct YourApp: App {
     }
 }
 ```
-# 🧪 Using the Built-In SwiftUI Testing View
+#   Using the Built-In SwiftUI Testing View
 
 Your package includes a complete testing UI.
 
@@ -121,7 +121,7 @@ struct ContentView: View {
 -> Explanation how this works 
 ---
 
-# 🕒 1. Schedule One-Time Notification
+#   1. Schedule One-Time Notification
 
 ```swift
 LocalNotificationScheduler.shared.scheduleOnce(
@@ -135,7 +135,7 @@ LocalNotificationScheduler.shared.scheduleOnce(
 
 ---
 
-# 🔁 2. Schedule Daily Notification
+#  2. Schedule Daily Notification
 
 ```swift
 LocalNotificationScheduler.shared.scheduleDaily(
@@ -149,7 +149,7 @@ LocalNotificationScheduler.shared.scheduleDaily(
 
 ---
 
-# 📅 3. Schedule Weekly Notification
+#   3. Schedule Weekly Notification
 
 ```swift
 LocalNotificationScheduler.shared.scheduleWeekly(
@@ -164,7 +164,7 @@ LocalNotificationScheduler.shared.scheduleWeekly(
 
 ---
 
-# ⏰ 4. Schedule Hourly Notification
+#  4. Schedule Hourly Notification
 
 ```swift
 LocalNotificationScheduler.shared.scheduleHourly(
@@ -178,7 +178,7 @@ LocalNotificationScheduler.shared.scheduleHourly(
 
 ---
 
-# 🗑 Cancel Notification
+#   Cancel Notification
 
 ```swift
 LocalNotificationScheduler.shared.cancel(id)
@@ -186,7 +186,7 @@ LocalNotificationScheduler.shared.cancel(id)
 
 ---
 
-# 🧹 Cancel All Notifications
+#  Cancel All Notifications
 
 ```swift
 LocalNotificationScheduler.shared.clearAll()
@@ -200,7 +200,7 @@ This allows developers to test notifications without writing extra code.
 
 ---
 
-# 🔊 Adding Custom Sounds
+#   Adding Custom Sounds
 
 Your sound files **must** follow:
 
