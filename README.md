@@ -143,7 +143,7 @@ NotificationAPI.shared.scheduleWeekly(
 )
 ```
 
-### Explanation for Beginners:
+### Explanation:
 
 * `[1,3,5]` means:
 
