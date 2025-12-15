@@ -1,18 +1,4 @@
 
-#   **iOS Local Notification Scheduler (Swift Package Manager)**
-
-A lightweight Swift package that gives you a **super simple API** to schedule:
-
-* One-Time Notifications
-* Daily Notifications
-* Weekly Notifications
-* Repeating Interval Notifications
-* Custom Sound Notifications
-
-No built-in UI required — developers can use **their own SwiftUI or UIKit interface** and call your API.
-
----
-
 #   **Features**
 
 ✔ Easy for beginners
